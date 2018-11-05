@@ -1,0 +1,8 @@
+﻿  Emitter.cpp
+  Particle.cpp
+  main.cpp
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(184): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Physics.cpp
+  VectorField.cpp
+  Создание кода...
+  Fluid_Dynamics.vcxproj -> C:\Users\zecos\source\repos\c++\SFML\Fluid_Dynamics\x64\Debug\Fluid_Dynamics.exe

@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(61): warning C4930: ZecosMAX::FluidDynamics::SystemHandler handler(void): функция с прототипом не вызвана (предполагалось определение переменной?)
+  Fluid_Dynamics.vcxproj -> C:\Users\zecos\source\repos\c++\SFML\Fluid_Dynamics\Debug\Fluid_Dynamics.exe

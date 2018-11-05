@@ -1,0 +1,10 @@
+﻿  Emitter.cpp
+  Particle.cpp
+  main.cpp
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(195): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Physics.cpp
+  VectorField.cpp
+  Создание кода
+  All 492 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  Fluid_Dynamics.vcxproj -> C:\Users\zecos\source\repos\c++\SFML\Fluid_Dynamics\x64\Release\Fluid_Dynamics.exe
