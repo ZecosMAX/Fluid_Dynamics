@@ -134,6 +134,7 @@
     <ClInclude Include="Definitions.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Fractal_shader.frag" />
     <None Include="fragment_shader.frag" />
     <None Include="vertex_shader.vert" />
   </ItemGroup>

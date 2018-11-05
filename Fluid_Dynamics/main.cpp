@@ -33,6 +33,7 @@ namespace ZecosMAX
 			sf::RenderWindow *window;
 			sf::View *view;
 			sf::Shader *shader;
+			sf::Shader *shaderF;
 			sf::Texture* CircleTexture;
 
 			Physics physics;
@@ -52,6 +53,7 @@ namespace ZecosMAX
 				window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Graphs", sf::Style::Default, settings);
 				view = new sf::View(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT));
 				shader = new sf::Shader();
+				shaderF = new sf::Shader();
 				CircleTexture = new sf::Texture();
 
 				if (!CircleTexture->loadFromFile("Circle.png"))
@@ -72,6 +74,10 @@ namespace ZecosMAX
 				std::string fragment((std::istreambuf_iterator<char>(ifsf)),
 					(std::istreambuf_iterator<char>()));
 
+				std::ifstream ifsfr("Fractal_shader.frag");
+				std::string fractal((std::istreambuf_iterator<char>(ifsfr)),
+					(std::istreambuf_iterator<char>()));
+
 				// load both shaders
 				if (!shader->loadFromMemory(vertex, sf::Shader::Vertex))
 				{
@@ -87,6 +93,20 @@ namespace ZecosMAX
 					//return;
 					// error...
 				}
+				if (!shaderF->loadFromMemory(vertex, sf::Shader::Vertex))
+				{
+					std::cout << "There is some error, idk what exactly\nSo fuck off\n";// << sf::err().rdbuf();
+					std::cout << vertex << "\n";
+					//return;
+					// error...
+				}
+				if (!shaderF->loadFromMemory(fractal, sf::Shader::Fragment))
+				{
+					std::cout << "There is some error, idk what exactly\nSo fuck off\n";// << sf::err().rdbuf();
+					std::cout << fractal << "\n";
+					//return;
+					// error...
+				}
 				//StartRenderLoop();
 			}
 			~SystemHandler() {
@@ -97,22 +117,31 @@ namespace ZecosMAX
 #ifdef DEBUG
 				std::cout << "...\tStarted a renderloop\n";
 #endif // DEBUG
-				sf::RectangleShape BG(sf::Vector2f(WIDTH, HEIGHT));
-				BG.setPosition(sf::Vector2f(0, 0));
-				BG.setFillColor(sf::Color(0, 0, 20));	
-
 				view->setCenter(0, 0);
 
 
 				std::vector<sf::Vertex> verticiesStatic;
-				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(100, 100),	sf::Vector2f(1,1)));
-				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(100, -100),	sf::Vector2f(1,0)));
-				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-100, -100),	sf::Vector2f(0,0)));
-				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-100, 100),	sf::Vector2f(0,1)));
+				verticiesStatic.push_back(sf::Vertex(sf::Vector2f( WIDTH / 2,  HEIGHT / 2), sf::Vector2f(.5, .5)));
+				verticiesStatic.push_back(sf::Vertex(sf::Vector2f( WIDTH / 2, -HEIGHT / 2),	sf::Vector2f(.5, -.5)));
+				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-WIDTH / 2, -HEIGHT / 2), sf::Vector2f(-.5, -.5)));
+				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-WIDTH / 2,  HEIGHT / 2),	sf::Vector2f(-.5, .5)));
 
 				shader->setParameter("texture", *CircleTexture);
+				int IterLimit = 0;
+				float x = 0.25, y = 0;
+				float scale = 1.0;
 				while (window->isOpen())
 				{
+					shaderF->setUniform("Limit", IterLimit);
+					shaderF->setUniform("offset", sf::Vector2f(x, y));
+					shaderF->setUniform("position", sf::Vector2f(0, 0));
+					shaderF->setUniform("scale", scale);
+
+					sf::String title;
+					title += "Iterations ";
+					title += std::to_string(IterLimit);
+					window->setTitle(title);
+
 					sf::Event event;
 					while (window->pollEvent(event))
 					{
@@ -129,6 +158,32 @@ namespace ZecosMAX
 							//particles_count += (1);
 							adding = !adding;
 						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num0))
+						{
+							IterLimit++;
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num9))
+						{
+							IterLimit--;
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)) {
+							y-= (0.01 / scale);
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)) {
+							y+= (0.01 / scale);
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)) {
+							x += (0.01 / scale);
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)) {
+							x -= (0.01 / scale);
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::PageUp)) {
+							scale *= 2;
+						}
+						if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::PageDown)) {
+							scale /= 2;
+						}
 					}
 
 					// Очистка
@@ -140,7 +195,7 @@ namespace ZecosMAX
 					//std::cout << "\rParticles count: " << particles.size();
 #endif // DEBUG
 
-					window->draw(&verticiesStatic[0], verticiesStatic.size(), sf::Quads, shader);
+					window->draw(&verticiesStatic[0], verticiesStatic.size(), sf::Quads, shaderF);
 
 					try
 					{
@@ -213,7 +268,7 @@ int main() {
 		}
 	});
 	handler->StartRenderLoop();
-	system("pause");
+	//system("pause");
 	updateThread.join();
 	return 0;
 }

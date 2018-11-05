@@ -16,12 +16,6 @@ namespace ZecosMAX
 		{
 		public:
 			Physics() {
-				//sf::Vector2f A(10, 10);
-				//std::cout << "A len: " << sqrt(A.x * A.x + A.y * A.y) << "\n";
-				//auto B = VectorField::shortenLength(A, 14.1421f*2);
-				//std::cout << "B len: " << sqrt(B.x * B.x + B.y * B.y) << "\n";
-				//B = VectorField::shortenLength(B, 14.1421f);
-				//std::cout << "B len 2: " << sqrt(B.x * B.x + B.y * B.y) << "\n";
 			}
 			Physics(std::vector<Particle> particles)
 			{
