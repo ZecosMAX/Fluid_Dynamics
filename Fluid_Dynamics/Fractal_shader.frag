@@ -12,7 +12,7 @@ int mandelbrot(in int maxIterations)
 	for(int iteration = 0; iteration < maxIterations; iteration++)
 	{
 		z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
-		if(length(z) >= 4)
+		if(length(z) >= 2)
 			return iteration;
 	}
 	return 0;
@@ -22,7 +22,11 @@ void main()
 {
     // lookup the pixel in the texture
 	float iter = mandelbrot(Limit);
-    vec4 pixel = vec4(0.0, mod(iter, 1)/iter + Limit, 0.2, 1.0);//texture2D(texture, gl_TexCoord[0].xy);
+    vec4 pixel = vec4(
+	iter / Limit + mod(Limit , iter), 
+	iter / Limit + mod(Limit , iter), 
+	iter / Limit + mod(Limit , iter), 
+	1.0);//texture2D(texture, gl_TexCoord[0].xy);
 
     // multiply it by the color
     gl_FragColor = gl_Color * pixel;

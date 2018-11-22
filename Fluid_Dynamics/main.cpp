@@ -120,13 +120,16 @@ namespace ZecosMAX
 				view->setCenter(0, 0);
 
 
-				std::vector<sf::Vertex> verticiesStatic;
+				/*std::vector<sf::Vertex> verticiesStatic;
 				verticiesStatic.push_back(sf::Vertex(sf::Vector2f( WIDTH / 2,  HEIGHT / 2), sf::Vector2f(.5, .5)));
 				verticiesStatic.push_back(sf::Vertex(sf::Vector2f( WIDTH / 2, -HEIGHT / 2),	sf::Vector2f(.5, -.5)));
 				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-WIDTH / 2, -HEIGHT / 2), sf::Vector2f(-.5, -.5)));
-				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-WIDTH / 2,  HEIGHT / 2),	sf::Vector2f(-.5, .5)));
+				verticiesStatic.push_back(sf::Vertex(sf::Vector2f(-WIDTH / 2,  HEIGHT / 2),	sf::Vector2f(-.5, .5)));*/
 
-				shader->setParameter("texture", *CircleTexture);
+
+				shader->setParameter("color", sf::Vector3f(0.5f, 0.5f ,0.5f ));
+
+
 				int IterLimit = 0;
 				float x = 0.25, y = 0;
 				float scale = 1.0;
@@ -195,7 +198,7 @@ namespace ZecosMAX
 					//std::cout << "\rParticles count: " << particles.size();
 #endif // DEBUG
 
-					window->draw(&verticiesStatic[0], verticiesStatic.size(), sf::Quads, shaderF);
+					//window->draw(&verticiesStatic[0], verticiesStatic.size(), sf::Quads, shaderF);
 
 					try
 					{
@@ -207,7 +210,8 @@ namespace ZecosMAX
 							//sf::Shader::bind(shader);
 							
 							//window->draw(p[i].shape, shader);
-							window->draw(p[i].vertex, 4, sf::Quads, shader);
+							shader->setUniform("pos", sf::Vector2f(0,0));
+							window->draw(p[i].vertex, 1, sf::Points, shader);
 							//sf::Shader::bind(NULL);
 						}
 					}

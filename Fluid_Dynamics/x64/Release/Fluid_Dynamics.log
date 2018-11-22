@@ -1,10 +1,13 @@
-﻿  Emitter.cpp
-  Particle.cpp
+﻿  Particle.cpp
   main.cpp
-c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(195): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Physics.cpp
-  VectorField.cpp
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(173): warning C4244: -=: преобразование "double" в "float", возможна потеря данных
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(176): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(179): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(182): warning C4244: -=: преобразование "double" в "float", возможна потеря данных
+c:\users\zecos\source\repos\c++\sfml\fluid_dynamics\fluid_dynamics\main.cpp(254): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   Создание кода
-  All 492 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  74 of 439 functions (16.9%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    31 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   Fluid_Dynamics.vcxproj -> C:\Users\zecos\source\repos\c++\SFML\Fluid_Dynamics\x64\Release\Fluid_Dynamics.exe
